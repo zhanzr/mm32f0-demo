@@ -38,7 +38,7 @@ static void SPI_Configure(void)
     SPI_InitStruct.SPI_CPOL      = SPI_CPOL_Low;
     SPI_InitStruct.SPI_CPHA      = SPI_CPHA_1Edge;
     SPI_InitStruct.SPI_NSS       = SPI_NSS_Soft;
-    SPI_InitStruct.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_16;
+    SPI_InitStruct.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_2;
     SPI_InitStruct.SPI_FirstBit  = SPI_FirstBit_MSB;
     SPI_Init(SPI2, &SPI_InitStruct);
 
@@ -277,7 +277,7 @@ static void SpeedTest(void)
     }
 
     printf("\r\n");
-    printf("\r\n--- SPI Flash speed (region %u KB, SPI2 prescaler /16) ---", TEST_REGION_SIZE / 1024);
+    printf("\r\n--- SPI Flash speed (region %u KB, SPI2 prescaler /2) ---", TEST_REGION_SIZE / 1024);
     printf("\r\nErase  time: %lu ms    speed: %lu B/s",
            (unsigned long)tErase,
            (unsigned long)((TEST_REGION_SIZE * 1000UL) / (tErase ? tErase : 1)));
