@@ -14,6 +14,7 @@ MindMotion **MM32F0144C6P** development board.
 | LEDs | PA15, PB3, PB4, PB5 (low active) |
 | UART | UART2 on PA2 (Txd) / PA3 (Rxd), or UART1 on PA9 / PA10 |
 | I2C EEPROM | 24C02 on PB6 (SCL) / PB7 (SDA) |
+| SPI Flash | ZD25WQ80 (1 MB) on PB12(CS)/PB13(SCK)/PB14(MISO)/PB15(MOSI) |
 | Debug | SWD (via CMSIS-DAP probe, externally powered) |
 
 ## Projects
@@ -24,6 +25,7 @@ Each project is independent and lives in its own folder under `bare/`:
 - `bare/dhry_72m/` — Dhrystone 2.1 benchmark @ 72 MHz (arm-none-eabi-gcc)
 - `bare/pwm_test/` — passive buzzer PWM sweep on PA8 + LED duty pattern (arm-none-eabi-gcc)
 - `bare/i2c_ee_merged/` — onboard 24C02 EEPROM speed test: hardware I2C + bit-bang in one project (arm-none-eabi-gcc)
+- `bare/spi_flash_test/` — onboard ZD25WQ80 SPI NOR flash speed test (arm-none-eabi-gcc)
 
 ## Programming
 
