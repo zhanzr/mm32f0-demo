@@ -3,6 +3,9 @@
 Tests the onboard **24C02** I2C EEPROM (SCL = PB6, SDA = PB7) on the
 MINI-F0144 board and measures erase / program / read throughput.
 
+This is the **bit-bang (software I2C) baseline**. The official hardware I2C
+driver is verified separately in `../i2c_ee_test_hw/`.
+
 The 24C02 is driven with a software (bit-bang) I2C master on PB6/PB7
 (open-drain with the onboard pull-ups), 100 kHz nominal SCL.
 
@@ -57,3 +60,16 @@ make flash
   full 256-byte device.
 - The onboard 24C02 is at 7-bit address 0x50.
 - Console output over UART2 (PA2 Tx) at 115200 baud.
+
+## Speed comparison (bit-bang baseline vs hardware I2C)
+
+Measured on the same board, full 256-byte 24C02:
+
+| Version | Erase | Program | Read | Readback |
+| ------- | ----- | ------- | ---- | -------- |
+| bit-bang (this) | 704 ms / 363 B/s | 704 ms / 363 B/s | 417 ms / 613 B/s | PASS |
+| hardware I2C (`../i2c_ee_test_hw/`) | 1601 ms / 159 B/s | 1600 ms / 160 B/s | 30 ms / 8533 B/s | PASS |
+
+The hardware I2C reads far faster (multiple bytes in one transaction), while
+its writes are slower because the official driver uses a conservative ~50 ms
+per-page tWR delay; the bit-bang version uses ~5 ms per page.
