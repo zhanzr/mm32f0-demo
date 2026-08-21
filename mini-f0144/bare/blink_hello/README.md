@@ -5,7 +5,7 @@ Minimal bare-metal project for the **MINI-F0144** (MM32F0144C6P), built with
 
 ## Features
 
-- Blinks the 4 on-board LEDs: PA15, PB3, PB4, PB5 (high active), every 1 s
+- Blinks the 4 on-board LEDs: PA15, PB3, PB4, PB5 (low active), every 1 s
 - Prints system clock over UART2 (PA2 TXd -> bridge RxD, 115200)
 - Reports ADC internal channels every 5 s: VREF (ch15) -> voltage,
   die temperature (ch14) -> Celsius, VDDA derived from Vref calibration

@@ -3,7 +3,7 @@
   @brief   Platform layer for MM32F0140:
            - Console via UART2 on PA2 (Txd) / PA3 (Rxd), printf redirected with _write
            - SysTick based millisecond delay
-           - LED helpers (high active: ENABLE == pin high)
+           - LED helpers (low active: ENABLE == pin low)
            - Boot info + system frequency print
 ***********************************************************************************************************************/
 
@@ -108,7 +108,7 @@ int fputc(int ch, FILE *f)
 #endif
 
 /***********************************************************************************************************************
-  LED helpers - mini-F0144 LEDs: PA15, PB3, PB4, PB5 (high active)
+  LED helpers - mini-F0144 LEDs: PA15, PB3, PB4, PB5 (low active: LED on == pin low)
 ***********************************************************************************************************************/
 void PLATFORM_InitLED(void)
 {
@@ -129,7 +129,7 @@ void PLATFORM_InitLED(void)
     GPIO_InitStruct.GPIO_Mode  = GPIO_Mode_Out_PP;
     GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-    /* all LEDs off (high active => low pin) */
+    /* all LEDs off (low active => high pin) */
     PLATFORM_LED_Enable(LED1, DISABLE);
     PLATFORM_LED_Enable(LED2, DISABLE);
     PLATFORM_LED_Enable(LED3, DISABLE);
@@ -141,19 +141,19 @@ void PLATFORM_LED_Enable(LEDn_TypeDef LEDn, FunctionalState State)
     switch (LEDn)
     {
         case LED1:
-            GPIO_WriteBit(GPIOA, GPIO_Pin_15, (ENABLE == State) ? Bit_SET : Bit_RESET);
+            GPIO_WriteBit(GPIOA, GPIO_Pin_15, (ENABLE == State) ? Bit_RESET : Bit_SET);
             break;
 
         case LED2:
-            GPIO_WriteBit(GPIOB, GPIO_Pin_3, (ENABLE == State) ? Bit_SET : Bit_RESET);
+            GPIO_WriteBit(GPIOB, GPIO_Pin_3, (ENABLE == State) ? Bit_RESET : Bit_SET);
             break;
 
         case LED3:
-            GPIO_WriteBit(GPIOB, GPIO_Pin_4, (ENABLE == State) ? Bit_SET : Bit_RESET);
+            GPIO_WriteBit(GPIOB, GPIO_Pin_4, (ENABLE == State) ? Bit_RESET : Bit_SET);
             break;
 
         case LED4:
-            GPIO_WriteBit(GPIOB, GPIO_Pin_5, (ENABLE == State) ? Bit_SET : Bit_RESET);
+            GPIO_WriteBit(GPIOB, GPIO_Pin_5, (ENABLE == State) ? Bit_RESET : Bit_SET);
             break;
 
         default:

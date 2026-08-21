@@ -1,6 +1,6 @@
 /***********************************************************************************************************************
   @file    platform.h
-  @brief   Project platform layer: console (UART2 PA2/PA3), SysTick delay, LED helpers.
+  @brief   Project platform layer: console (UART2 PA2), SysTick delay, LED helpers (low active).
 ***********************************************************************************************************************/
 
 #ifndef _PLATFORM_H_
