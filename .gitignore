@@ -1,0 +1,37 @@
+# Build artifacts
+build/
+build-*/
+_build/
+_objs/
+
+# Binaries / objects
+*.elf
+*.hex
+*.bin
+*.map
+*.o
+*.obj
+*.a
+*.lst
+*.axf
+*.sct
+
+# Logs
+*.log
+*.mdb
+*.ini
+
+# IDE / toolchain per-user files (Keil/IAR)
+*.uvoptx
+*.uvguix*
+*.uvbak
+*.scvd
+.vs/
+.settings/
+
+# Editor / OS
+.vscode/
+.idea/
+*.swp
+Thumbs.db
+.DS_Store
