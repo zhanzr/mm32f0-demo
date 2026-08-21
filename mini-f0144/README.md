@@ -21,11 +21,18 @@ Each project is independent and lives in its own folder under `bare/`:
 
 - `bare/blink_hello/` — bare-metal blink + console demo (arm-none-eabi-gcc)
 - `bare/dhry_72m/` — Dhrystone 2.1 benchmark @ 72 MHz (arm-none-eabi-gcc)
+- `bare/pwm_test/` — passive buzzer PWM sweep on PA8 + LED duty pattern (arm-none-eabi-gcc)
 
 ## Programming
 
 The board is powered externally (the debug probe does **not** power the
-target). Use pyOCD over SWD; see each project README for its command and for
-other toolchain options.
+target). Use pyOCD over SWD; the MM32F0140 device family pack is vendored in
+the repo at `packs/MindMotion.MM32F0140_DFP.pack`, so each project flashes
+with a single command:
+
+```sh
+cd bare/<project>
+make flash
+```
 
 Console output: UART2 PA2 (Txd) to bridge RxD, 115200 baud.

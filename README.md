@@ -2,13 +2,12 @@
 
 Bare-metal demo projects for MindMotion MM32F0 boards.
 
-Boards live in their own folder; each project is independent and has its
-own build instructions:
+| Board | Directory | MCU |
+| ----- | --------- | --- |
+| MINI-F0144 | `mini-f0144/` | MM32F0144C6P |
 
-- `mini-f0144/` — MINI-F0144 board (MM32F0144C6P)
-  - `bare/blink_hello/` — blink + console, arm-none-eabi-gcc
-  - `bare/dhry_72m/` — Dhrystone 2.1 benchmark @ 72 MHz, arm-none-eabi-gcc
+Each board folder contains its own projects; each project is independent and
+has its own build instructions. Shared dependencies in the repo:
 
-Shared dependency: the vendor HAL library in `LibSamples_MM32F0140_V1.9.11/`.
-
-See each project README for build and flash instructions.
+- Vendor HAL library: `LibSamples_MM32F0140_V1.9.11/`
+- CMSIS device packs for flashing: `packs/`

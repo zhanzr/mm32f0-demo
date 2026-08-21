@@ -1,6 +1,5 @@
-# dhry_72m - MM32F0144C6P (MINI-F0144), Dhrystone 2.1 benchmark at 72 MHz
+# pwm_test - MM32F0144C6P (MINI-F0144), TIM1_CH1 PWM on PA8 => passive buzzer
 # Toolchain: arm-none-eabi-gcc
-# NOTE: no -flto! LTO would move benchmark code out of the timed loop.
 
 CROSS      ?= arm-none-eabi-
 CC          = $(CROSS)gcc
@@ -18,8 +17,7 @@ DEV_DIR     = $(LIB)/Device/MM32F0140
 CMSIS_DIR   = $(LIB)/Device/CMSIS/KEIL_Core
 HAL_DIR     = $(DEV_DIR)/HAL_Lib/Src
 
-# Application + HAL sources (no LTO used anywhere)
-APP_SRCS    = main.c platform.c dhry_1.c dhry_2.c utils.c mm32f0140_it.c syscalls.c
+APP_SRCS    = main.c platform.c pwm_test.c mm32f0140_it.c syscalls.c
 HAL_SRCS    = hal_adc.c hal_comp.c hal_crc.c hal_dbg.c hal_div.c hal_dma.c \
               hal_exti.c hal_flash.c hal_flexcan.c hal_gpio.c hal_i2c.c \
               hal_iwdg.c hal_misc.c hal_pwr.c hal_rcc.c hal_spi.c hal_tim.c \
@@ -39,18 +37,16 @@ INC         = -I. \
 
 DEFS        = -DUSE_STDPERIPH_DRIVER
 
-# -Ofast -ffp-contract=fast -funroll-loops is the optimization used for the
-# recorded result. Do NOT add -flto (would move code out of the timed loop).
-CFLAGS      = -mcpu=cortex-m0 -mthumb -g -Ofast -ffp-contract=fast -funroll-loops -Wall -ffunction-sections -fdata-sections
+CFLAGS      = -mcpu=cortex-m0 -mthumb -g -O2 -Wall -ffunction-sections -fdata-sections
 CFLAGS      += $(INC) $(DEFS) -std=gnu99
 ASFLAGS     = -mcpu=cortex-m0 -mthumb -g -Wall
 
 LDFLAGS     = -mcpu=cortex-m0 -mthumb -nostartfiles -Wl,--gc-sections
-LDFLAGS     += -T link.ld --specs=nano.specs -Wl,-Map=build/dhry_72m.map -u _printf_float
+LDFLAGS     += -T link.ld --specs=nano.specs -Wl,-Map=build/pwm_test.map
 
-TARGET      = build/dhry_72m.elf
-HEX         = build/dhry_72m.hex
-BIN         = build/dhry_72m.bin
+TARGET      = build/pwm_test.elf
+HEX         = build/pwm_test.hex
+BIN         = build/pwm_test.bin
 
 .PHONY: all clean size flash
 

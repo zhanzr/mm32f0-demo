@@ -9,6 +9,10 @@ SIZE        = $(CROSS)size
 # Vendor library root (relative to this Makefile)
 LIB         ?= ../../../LibSamples_MM32F0140_V1.9.11
 
+# CMSIS device family pack for flashing (vendored in ../../
+PACK        ?= ../../../packs/MindMotion.MM32F0140_DFP.pack
+TARGET_CHIP  = mm32f0144c6p
+
 DEV_DIR     = $(LIB)/Device/MM32F0140
 CMSIS_DIR   = $(LIB)/Device/CMSIS/KEIL_Core
 HAL_DIR     = $(DEV_DIR)/HAL_Lib/Src
@@ -46,15 +50,19 @@ TARGET      = build/blink_hello.elf
 HEX         = build/blink_hello.hex
 BIN         = build/blink_hello.bin
 
-.PHONY: all clean size
+.PHONY: all clean size flash
 
-all: $(TARGET)
+all: $(TARGET) $(HEX) $(BIN)
 	$(SIZE) $(TARGET)
-	$(OBJCOPY) -O ihex   $(TARGET) $(HEX)
-	$(OBJCOPY) -O binary $(TARGET) $(BIN)
 
 $(TARGET): $(OBJS) link.ld
 	$(CC) $(LDFLAGS) -o $@ $(OBJS)
+
+$(HEX): $(TARGET)
+	$(OBJCOPY) -O ihex   $< $@
+
+$(BIN): $(TARGET)
+	$(OBJCOPY) -O binary $< $@
 
 build/startup_mm32f0140.o: startup_mm32f0140.s
 	@mkdir -p $(BUILD_DIR)
@@ -77,3 +85,6 @@ clean:
 
 size: $(TARGET)
 	$(SIZE) $(TARGET)
+
+flash: $(HEX)
+	pyocd load -t $(TARGET_CHIP) --pack $(PACK) -O reset_type=sw $(HEX)

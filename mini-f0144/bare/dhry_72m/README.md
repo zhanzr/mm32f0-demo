@@ -17,9 +17,14 @@ Outputs: `build/dhry_72m.elf`, `.bin`, `.hex`.
 
 ## Flash
 
+The MM32F0140 device family pack is vendored at
+`packs/MindMotion.MM32F0140_DFP.pack`, so flashing is a single command:
+
 ```sh
-pyocd load -t mm32f0144c6p --pack <MM32F0140_DFP.pack> -O reset_type=sw build/dhry_72m.hex
+make flash
 ```
+
+(equivalent to `pyocd load -t mm32f0144c6p --pack ../../../packs/MindMotion.MM32F0140_DFP.pack -O reset_type=sw build/dhry_72m.hex`)
 
 ## Benchmark result
 

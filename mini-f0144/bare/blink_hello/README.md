@@ -28,15 +28,15 @@ Outputs go to `build/`: `blink_hello.elf`, `blink_hello.bin`, `blink_hello.hex`.
 ## Flash
 
 The board is externally powered; the probe only provides SWD. The default
-(and only working) flasher for this MCU is **pyOCD**:
+(and only working) flasher for this MCU is **pyOCD**. The MM32F0140 device
+family pack is vendored at `packs/MindMotion.MM32F0140_DFP.pack`, so flashing
+is a single command:
 
 ```sh
-pyocd load -t mm32f0144c6p --pack <MM32F0140_DFP.pack> -O reset_type=sw build/blink_hello.hex
+make flash
 ```
 
-The `MM32F0140_DFP.pack` comes from the MindMotion device family pack
-(`D:\Arm\Packs\MindMotion\MM32F0140_DFP\<ver>` — package its `Flash/` +
-`SVD/` + `.pdsc` into a zip, pyOCD loads it via `--pack`).
+(equivalent to `pyocd load -t mm32f0144c6p --pack ../../../packs/MindMotion.MM32F0140_DFP.pack -O reset_type=sw build/blink_hello.hex`)
 
 ## Toolchain comparison
 
