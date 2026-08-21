@@ -1,7 +1,7 @@
 #define _MAIN_C_
 
 #include "platform.h"
-#include "i2c_ee_test.h"
+#include "i2c_ee_merged.h"
 #include "main.h"
 
 int main(void)
@@ -10,9 +10,9 @@ int main(void)
 
     PLATFORM_PrintInfo();
 
-    I2C_EETEST_Init();
+    I2C_EEMERGED_Init();
 
-    I2C_EETEST_Run();
+    I2C_EEMERGED_Run();
 
     while (1)
     {

@@ -23,8 +23,7 @@ Each project is independent and lives in its own folder under `bare/`:
 - `bare/blink_hello/` — bare-metal blink + console demo (arm-none-eabi-gcc)
 - `bare/dhry_72m/` — Dhrystone 2.1 benchmark @ 72 MHz (arm-none-eabi-gcc)
 - `bare/pwm_test/` — passive buzzer PWM sweep on PA8 + LED duty pattern (arm-none-eabi-gcc)
-- `bare/i2c_ee_test/` — onboard 24C02 EEPROM speed test, bit-bang I2C (arm-none-eabi-gcc)
-- `bare/i2c_ee_test_hw/` — official hardware I2C EEPROM polling clone (arm-none-eabi-gcc)
+- `bare/i2c_ee_merged/` — onboard 24C02 EEPROM speed test: hardware I2C + bit-bang in one project (arm-none-eabi-gcc)
 
 ## Programming
 

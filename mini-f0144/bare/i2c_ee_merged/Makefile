@@ -1,6 +1,5 @@
-# i2c_ee_test_hw - official I2C_Master_EEPROM_Polling clone
-# Compiles the vendor's hardware I2C EEPROM polling demo with arm-none-eabi-gcc
-# (GCC startup + linker + newlib), verifying the official hardware I2C path.
+# i2c_ee_merged - onboard 24C02 EEPROM test (hardware I2C + software bit-bang)
+# Toolchain: arm-none-eabi-gcc
 
 CROSS      ?= arm-none-eabi-
 CC          = $(CROSS)gcc
@@ -18,7 +17,7 @@ DEV_DIR     = $(LIB)/Device/MM32F0140
 CMSIS_DIR   = $(LIB)/Device/CMSIS/KEIL_Core
 HAL_DIR     = $(DEV_DIR)/HAL_Lib/Src
 
-APP_SRCS    = main.c platform.c i2c_master_eeprom_polling.c mm32f0140_it.c syscalls.c
+APP_SRCS    = main.c platform.c i2c_ee_merged.c mm32f0140_it.c syscalls.c
 HAL_SRCS    = hal_adc.c hal_comp.c hal_crc.c hal_dbg.c hal_div.c hal_dma.c \
               hal_exti.c hal_flash.c hal_flexcan.c hal_gpio.c hal_i2c.c \
               hal_iwdg.c hal_misc.c hal_pwr.c hal_rcc.c hal_spi.c hal_tim.c \
@@ -42,11 +41,11 @@ CFLAGS      += $(INC) $(DEFS) -std=gnu99
 ASFLAGS     = -mcpu=cortex-m0 -mthumb -g -Wall
 
 LDFLAGS     = -mcpu=cortex-m0 -mthumb -nostartfiles -Wl,--gc-sections
-LDFLAGS     += -T link.ld --specs=nano.specs -Wl,-Map=build/i2c_ee_test_hw.map
+LDFLAGS     += -T link.ld --specs=nano.specs -Wl,-Map=build/i2c_ee_merged.map
 
-TARGET      = build/i2c_ee_test_hw.elf
-HEX         = build/i2c_ee_test_hw.hex
-BIN         = build/i2c_ee_test_hw.bin
+TARGET      = build/i2c_ee_merged.elf
+HEX         = build/i2c_ee_merged.hex
+BIN         = build/i2c_ee_merged.bin
 
 .PHONY: all clean size flash
 
